@@ -36,6 +36,11 @@ Parameters:
     AllowedPattern: "^[a-zA-Z0-9+=,.@_-]{0,128}$"
     ConstraintDescription: Must be a valid IAM role name (or leave blank)
 
+  InstanceName:
+    Description: Name tag for the EC2 instance
+    Type: String
+    Default: my-ec2-instance
+
 Mappings:
   ArchToAMI:
     x8664:
@@ -79,7 +84,7 @@ Resources:
       IamInstanceProfile: !If [HasInstanceRole, !Ref InstanceProfile, !Ref "AWS::NoValue"]
       Tags:
         - Key: Name
-          Value: my-ec2-instance
+          Value: !Ref InstanceName
 
 Outputs:
   InstanceId:
