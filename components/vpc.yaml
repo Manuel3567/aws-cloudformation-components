@@ -22,7 +22,7 @@ Resources:
       Tags:
       - Key: "Name"
         Value: myPublicSubnet1a
-
+    
   myInternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
@@ -57,15 +57,30 @@ Resources:
       RouteTableId: !Ref myPublicRouteTable
       SubnetId: !Ref myPublicSubnet1a
   
+  ########################## public subnet 1b
+  myPublicSubnet1b:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !GetAtt myVPC.VpcId
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: "eu-central-1b"
+      MapPublicIpOnLaunch: true
+      Tags:
+      - Key: "Name"
+        Value: myPublicSubnet1b
 
-
+  myPublic1bRouteTableSubnetAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref myPublicRouteTable
+      SubnetId: !Ref myPublicSubnet1b
 
   ########################## private subnet 1a
   myPrivateSubnet1a:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !GetAtt myVPC.VpcId
-      CidrBlock: 10.0.1.0/24
+      CidrBlock: 10.0.2.0/24
       AvailabilityZone: "eu-central-1a"
       MapPublicIpOnLaunch: false
       Tags:
@@ -91,7 +106,7 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !GetAtt myVPC.VpcId
-      CidrBlock: 10.0.2.0/24
+      CidrBlock: 10.0.3.0/24
       AvailabilityZone: "eu-central-1b"
       MapPublicIpOnLaunch: false
       Tags:
